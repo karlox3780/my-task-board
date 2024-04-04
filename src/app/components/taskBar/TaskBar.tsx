@@ -6,24 +6,38 @@ type Props = {
     logoColor: string;
     secondLogoColor: string;
     firstLogo: string;
-    Text: ReactNode;
+    Text: string;
+    Paragraph: string;
     secondLogo: string;
 };
 
-export default function TaskBar({ bgColor, logoColor, secondLogoColor, firstLogo, Text, secondLogo }: Props) {
+export default function TaskBar({ bgColor, logoColor, secondLogoColor, firstLogo, Text, Paragraph, secondLogo }: Props) {
     return (
-        <div className={`flex p-[16px] rounded-[16px] mt-[20px] ${bgColor} items-center justify-between`}>
-            <div className="flex items-center">
-                <div className={`${logoColor} p-[10px] rounded-[8px] mr-[20px]`}>
-                    <Image className="h-[20px] w-[20px]" width={20} height={20} src={firstLogo} alt="Clock" />
+        <div className={`${bgColor} rounded-[16px] mt-[20px] p-[16px] `}>
+            <div className={`flex items-center justify-between`}>
+                <div className="flex items-center">
+                    {
+                        firstLogo.includes("/")
+                            ?
+                            <div className={`${logoColor} p-[10px] rounded-[8px] mr-[20px]`}>
+                                <Image className="h-[20px] w-[20px]" width={20} height={20} src={firstLogo} alt="Clock" />
+                            </div>
+                            :
+                            <div className={`${logoColor} rounded-[8px] mr-[20px]`}>
+                                <div className="flex items-center justify-center h-[40px] w-[40px] text-[20px]">
+                                    {firstLogo}
+                                </div>
+                            </div>
+                    }
+                    <h2 className='text-[20px] font-semibold'>{Text}</h2>
                 </div>
-                {Text}
+                {
+                    (secondLogo && secondLogoColor) && <div className={`${secondLogoColor} p-[10px] rounded-[8px]`}>
+                        <Image className="" width={20} height={20} src={secondLogo} alt="Time Icon" />
+                    </div>
+                }
             </div>
-            {
-                (secondLogo && secondLogoColor) && <div className={`${secondLogoColor} p-[10px] rounded-[8px]`}>
-                    <Image className="" width={20} height={20} src={secondLogo} alt="Time Icon" />
-                </div>
-            }
+            <p className="task-paragraph">{Paragraph}</p>
         </div>
     );
 }

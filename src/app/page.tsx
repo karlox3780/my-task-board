@@ -1,7 +1,11 @@
 import Image from "next/image";
-import TaskBar from "@/components/taskBar/TaskBar";
+import TaskBar from "./components/TaskBar/TaskBar";
+import { defaultTasks } from "./utils/defaultTasks";
+import { elementsTaskStyle } from "./utils/elementsTaskStyle";
 
 export default function Home() {
+  const icons = ['👨🏻‍💻', '💬', '☕️', '🏋️', '📚', '⏰'];
+
   return (
     <main className="flex flex-col items-center justify-between p-[20px] mt-[48px] text-[#030616]">
       <div className="w-[552px]">
@@ -13,42 +17,26 @@ export default function Home() {
         <div className="mb-[40px]">
           <h2 className="ml-[50px] text-[16px] text-normal mt-[6px]">Tasks to keep organised</h2>
         </div>
-        <TaskBar
-          bgColor="bg-[#F5D565]"
-          logoColor="bg-[#f8fafc]"
-          secondLogoColor="bg-[#E9A23B]"
-          firstLogo="/images/reloj.png"
-          Text={<h2 className='text-[20px] font-semibold'>Task in Progress</h2>}
-          secondLogo="/images/Time_atack_duotone.svg" />
-        <TaskBar
-          bgColor="bg-[#A0ECB1]"
-          logoColor="bg-[#f8fafc]"
-          secondLogoColor="bg-[#32D657]"
-          firstLogo="/images/levantamiento-de-pesas.png"
-          Text={<h2 className='text-[20px] font-semibold'>Task Completed</h2>}
-          secondLogo="/images/done_round_duotone.svg" />
-        <TaskBar
-          bgColor="bg-[#F7D4D3]"
-          logoColor="bg-[#f8fafc]"
-          secondLogoColor="bg-[#DD524C]"
-          firstLogo="/images/cafe.png"
-          Text={<h2 className='text-[20px] font-semibold'>Task Won’t Do</h2>}
-          secondLogo="/images/close_ring_duotone.svg"
-        />
-        <TaskBar
-          bgColor="bg-[#E3E8EF]"
-          logoColor="bg-[#f8fafc]"
-          secondLogoColor=""
-          firstLogo="/images/pila-de-libros.png"
-          Text={<h2 className='text-[20px] font-semibold'>Task To Do</h2>}
-          secondLogo=""
-        />
+        {
+          defaultTasks.map(task => (
+            <TaskBar
+              key={task.id}
+              bgColor={elementsTaskStyle(task.status, "bgColor")}
+              logoColor="bg-[#f8fafc]"
+              secondLogoColor={elementsTaskStyle(task.status, "secondLogoColor")}
+              firstLogo={task.icon}
+              Text={task.title}
+              Paragraph={task.description}
+              secondLogo={elementsTaskStyle(task.status, "secondLogo")} />
+          ))
+        }
         <TaskBar
           bgColor="bg-[#F5E8D5]"
           logoColor="bg-[#E9A23B]"
           secondLogoColor=""
           firstLogo="/images/Add_round_duotone.svg"
-          Text={<h2 className='text-[20px] font-semibold'>Add new task</h2>}
+          Text="Add new task"
+          Paragraph=""
           secondLogo=""
         />
       </div>

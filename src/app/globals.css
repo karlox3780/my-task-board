@@ -20,6 +20,11 @@ body {
   font-family: "Outfit";
 }
 
+.task-paragraph {
+  width: calc(100% - 120px);
+  margin: 0 auto;
+}
+
 @layer utilities {
   .text-balance {
     text-wrap: balance;
