@@ -2,11 +2,11 @@ export function elementsTaskStyle(status: string, type: string) {
     let elementStyle = "";
     switch (status) {
         case "In Progress":
-            if (type === "bgColor") { elementStyle = "bg-[#F5D565]"; } else if (type === "secondLogoColor") { elementStyle = "bg-[#F5D565]"; }
+            if (type === "bgColor") { elementStyle = "bg-[#F5D565]"; } else if (type === "secondLogoColor") { elementStyle = "bg-[#E9A23B]"; }
             else { elementStyle = "/images/Time_atack_duotone.svg"; }
             break;
         case "Completed":
-            if (type === "bgColor") { elementStyle = "bg-[#A0ECB1]"; } else if (type === "secondLogoColor") { elementStyle = "bg-[#E9A23B]"; }
+            if (type === "bgColor") { elementStyle = "bg-[#A0ECB1]"; } else if (type === "secondLogoColor") { elementStyle = "bg-[#32D657]"; }
             else {
                 elementStyle = "/images/done_round_duotone.svg";
             }
