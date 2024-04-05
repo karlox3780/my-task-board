@@ -1,10 +1,14 @@
+"use client";
 import Image from "next/image";
 import TaskBar from "./components/TaskBar/TaskBar";
+import Modal from "./components/Modal/Modal";
 import { defaultTasks } from "./utils/defaultTasks";
 import { elementsTaskStyle } from "./utils/elementsTaskStyle";
+import { useState } from "react";
 
 export default function Home() {
   const icons = ['👨🏻‍💻', '💬', '☕️', '🏋️', '📚', '⏰'];
+  const [showModal, setShowModal] = useState(false);
 
   return (
     <main className="flex flex-col items-center justify-between p-[20px] mt-[48px] text-[#030616]">
@@ -30,16 +34,22 @@ export default function Home() {
               secondLogo={elementsTaskStyle(task.status, "secondLogo")} />
           ))
         }
-        <TaskBar
-          bgColor="bg-[#F5E8D5]"
-          logoColor="bg-[#E9A23B]"
-          secondLogoColor=""
-          firstLogo="/images/Add_round_duotone.svg"
-          Text="Add new task"
-          Paragraph=""
-          secondLogo=""
-        />
+        <div className="cursor-pointer" onClick={() => setShowModal(true)}>
+          <TaskBar
+            bgColor="bg-[#F5E8D5]"
+            logoColor="bg-[#E9A23B]"
+            secondLogoColor=""
+            firstLogo="/images/Add_round_duotone.svg"
+            Text="Add new task"
+            Paragraph=""
+            secondLogo=""
+          />
+        </div>
       </div>
+      <div id="modal-root"></div>
+      {showModal &&
+        <Modal title="Task Details" onClose={() => setShowModal(false)}/>
+      }
     </main>
   );
 }
