@@ -27,7 +27,18 @@ const Modal = ({ onClose, title }: Props) => {
                             <Image width="20" height="20" src="/images/close_ring_duotone-1.svg" alt="Close Icon" />
                         </a>
                     </div>
-                    <div className="modal-body"></div>
+                    <div className="modal-body">
+                        <div>
+                            <label className="font-medium text-[12px]">Task name</label>
+                            <input className="w-full border-[1px] border-[#cdd5e0] rounded-[8px] p-[10px] font-regular text-[16px] focus:outline-[#3662E3]" type="text" placeholder="Enter a task name" />
+                        </div>
+                        <div>
+                            <label className="font-medium text-[12px]">Description</label>
+                            <textarea className="w-full border-[1px] border-[#cdd5e0] rounded-[8px] p-[10px] font-regular text-[16px] focus:outline-[#3662E3]" placeholder="Enter a short description"></textarea>
+                        </div>
+                        <div></div>
+                        <div></div>
+                    </div>
                 </div>
             </div>
         </div>
