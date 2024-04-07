@@ -7,7 +7,6 @@ import { elementsTaskStyle } from "./utils/elementsTaskStyle";
 import { useState } from "react";
 
 export default function Home() {
-  const icons = ['👨🏻‍💻', '💬', '☕️', '🏋️', '📚', '⏰'];
   const [showModal, setShowModal] = useState(false);
 
   return (
@@ -48,7 +47,7 @@ export default function Home() {
       </div>
       <div id="modal-root"></div>
       {showModal &&
-        <Modal title="Task Details" onClose={() => setShowModal(false)}/>
+        <Modal title="Task Details" onClose={() => setShowModal(false)} />
       }
     </main>
   );
