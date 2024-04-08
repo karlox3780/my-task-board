@@ -13,7 +13,7 @@ const Modal = ({ onClose, title }: Props) => {
     const status = [
         { icon: '/images/Time_atack_duotone.svg', label: 'In Progress', color: '#E9A23B' },
         { icon: '/images/Done_round_duotone.svg', label: 'Completed', color: '#32D657' },
-        { icon: '/images/close_ring_duotone.svg', label: "Won't do", color: '#f8fafc' },
+        { icon: '/images/close_ring_duotone.svg', label: "Won't do", color: '#DD524C' },
     ];
     const ModalRoot = document.getElementById("modal-root") as HTMLElement;
     const handleCloseClick = (e: any) => {
@@ -64,7 +64,7 @@ const Modal = ({ onClose, title }: Props) => {
                             <div className="grid grid-cols-2 gap-x-[16px] gap-y-[6px] w-full">
                                 {status.map((status, index) => (
                                     <span className="flex" key={index}>
-                                        <span className="bg-]">
+                                        <span className={"p-[10px] rounded-[12px] bg-[" + status.color + "]"}>
                                             <Image width="20" height="20" src={status.icon} alt="Status Icon" />
                                         </span>
                                         <span>{status.label}</span>
