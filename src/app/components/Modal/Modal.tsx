@@ -63,12 +63,15 @@ const Modal = ({ onClose, title }: Props) => {
                             <label className="font-medium text-[12px] text-[#97A3B6]">Status</label>
                             <div className="grid grid-cols-2 gap-x-[16px] gap-y-[6px] w-full">
                                 {status.map((status, index) => (
-                                    <span className="flex" key={index}>
-                                        <span className={"p-[10px] rounded-[12px] bg-[" + status.color + "]"}>
-                                            <Image width="20" height="20" src={status.icon} alt="Status Icon" />
-                                        </span>
-                                        <span>{status.label}</span>
-                                    </span>
+                                    <div key={index}>
+                                        <input type="radio" id={"status-button" + index} name="status-button" value={status.label} className="hidden peer" />
+                                        <label htmlFor={"status-button" + index} className="w-full flex p-[2px] items-center rounded-[12px] border border-[#e3e8ef] peer-checked:border-[#3662E3]">
+                                            <span className={"p-[10px] rounded-[12px] mr-[10px] bg-[" + status.color + "]"}>
+                                                <Image width="20" height="20" src={status.icon} alt="Status Icon" />
+                                            </span>
+                                            <label>{status.label}</label>
+                                        </label>
+                                    </div>
                                 ))}
                             </div>
                         </div>
