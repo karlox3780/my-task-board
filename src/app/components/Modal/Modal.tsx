@@ -70,6 +70,7 @@ const Modal = ({ onClose, title }: Props) => {
                                                 <Image width="20" height="20" src={status.icon} alt="Status Icon" />
                                             </span>
                                             <label>{status.label}</label>
+                                            <Image />
                                         </label>
                                     </div>
                                 ))}
