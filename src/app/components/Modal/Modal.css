@@ -26,7 +26,9 @@
     background-color: rgba(0, 0, 0, 0.5);
 }
 
-.modal-body {}
+.peer\/status:checked~.peer-checked\/status\:border-\[\#3662E3\] .done-icon {
+    display: block;
+}
 
 .modal-header {
     display: flex;

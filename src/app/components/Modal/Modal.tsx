@@ -63,18 +63,32 @@ const Modal = ({ onClose, title }: Props) => {
                             <label className="font-medium text-[12px] text-[#97A3B6]">Status</label>
                             <div className="grid grid-cols-2 gap-x-[16px] gap-y-[6px] w-full">
                                 {status.map((status, index) => (
-                                    <div key={index}>
-                                        <input type="radio" id={"status-button" + index} name="status-button" value={status.label} className="hidden peer" />
-                                        <label htmlFor={"status-button" + index} className="w-full flex p-[2px] items-center rounded-[12px] border border-[#e3e8ef] peer-checked:border-[#3662E3]">
-                                            <span className={"p-[10px] rounded-[12px] mr-[10px] bg-[" + status.color + "]"}>
-                                                <Image width="20" height="20" src={status.icon} alt="Status Icon" />
-                                            </span>
-                                            <label>{status.label}</label>
-                                            <Image />
+                                    <div className="cursor-pointer" key={index}>
+                                        <input type="radio" id={"status-button" + index} name="status-button" value={status.label} className="hidden peer/status" />
+                                        <label htmlFor={"status-button" + index} className="w-full flex p-[2px] items-center justify-between cursor-pointer rounded-[12px] border border-[#e3e8ef] peer-checked/status:border-[#3662E3]">
+                                            <div className="flex items-center">
+                                                <div className={"p-[10px] rounded-[12px] mr-[10px] bg-[" + status.color + "]"}>
+                                                    <Image width="20" height="20" src={status.icon} alt="Status Icon" />
+                                                </div>
+                                                <label className="cursor-pointer" htmlFor={"status-button" + index}>{status.label}</label>
+                                            </div>
+                                            <label htmlFor={"status-button" + index} className="bg-[#3662E3] rounded-[50%] mr-[10px] hidden done-icon cursor-pointer">
+                                                <Image width="20" height="20" src="/images/Done_round.svg" alt="Status Icon" />
+                                            </label>
                                         </label>
                                     </div>
                                 ))}
                             </div>
+                        </div>
+                        <div className="bottom-buttons flex justify-end mt-[100px] text-[#fff]">
+                            <button className="bg-[#97A3B6] flex px-[30px] py-[10px] rounded-[22px] mr-[16px] cursor-pointer">
+                                <label className="mr-[5px] text-[14px] cursor-pointer">Delete</label>
+                                <Image width="20" height="20" src="/images/Trash.svg" alt="Status Icon" />
+                            </button>
+                            <button className="bg-[#3662E3] flex px-[30px] py-[10px] rounded-[22px] cursor-pointer">
+                                <label className="mr-[5px] text-[14px] cursor-pointer">Save</label>
+                                <Image width="20" height="20" src="/images/Done_round.svg" alt="Status Icon" />
+                            </button>
                         </div>
                     </div>
                 </div>
