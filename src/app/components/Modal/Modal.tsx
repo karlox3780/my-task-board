@@ -16,16 +16,19 @@ const Modal = ({ onClose, title }: Props) => {
         { icon: '/images/close_ring_duotone.svg', label: "Won't do", color: '#DD524C' },
     ];
     const ModalRoot = document.getElementById("modal-root") as HTMLElement;
-    const handleCloseClick = (e: any) => {
-        e.preventDefault();
-        onClose();
-    };
     const [activeIcon, setActiveIcon] = useState();
 
     const [formState, setFormState] = useState({
         taskName: "",
-        description: ""
+        description: "",
+        icon: "",
+        status: ""
     });
+
+    const handleCloseClick = (e: any) => {
+        e.preventDefault();
+        onClose();
+    };
 
     function handleChange(e: any) {
         setFormState({ ...formState, [e.target.name]: e.target.value });
@@ -35,12 +38,7 @@ const Modal = ({ onClose, title }: Props) => {
     async function handleSubmit(e: any) {
         e.preventDefault();
 
-        let formData = new FormData();
-
-        for (let [key, value] of Object.entries(formState)) {
-            formData.append(key, value);
-        }
-        console.log(formData);
+        console.log(formState);
     }
     const modalContent = (
         <div className="modal-overlay">
@@ -72,8 +70,8 @@ const Modal = ({ onClose, title }: Props) => {
                                     {
                                         icons.map((icon, index) => (
                                             <span key={icon}>
-                                                <input type="radio" id={"icon-button" + index} name="icon-button" value={icon} className="hidden peer" />
-                                                <label htmlFor={"icon-button" + index}
+                                                <input type="radio" id={"icon" + index} name="icon" value={icon} onChange={handleChange} checked={formState.icon === icon} className="hidden peer" />
+                                                <label htmlFor={"icon" + index}
                                                     className="w-[44px] h-[44px] flex justify-center items-center mt-[6px] text-[20px] rounded-[12px] bg-[#e3e8ef] cursor-pointer peer-checked:bg-[#F5D565]">
                                                     {icon}
                                                 </label>
@@ -87,15 +85,15 @@ const Modal = ({ onClose, title }: Props) => {
                                 <div className="grid grid-cols-2 gap-x-[16px] gap-y-[6px] w-full">
                                     {status.map((status, index) => (
                                         <div className="cursor-pointer" key={index}>
-                                            <input type="radio" id={"status-button" + index} name="status-button" value={status.label} className="hidden peer/status" />
-                                            <label htmlFor={"status-button" + index} className="w-full flex p-[2px] items-center justify-between cursor-pointer rounded-[12px] border border-[#e3e8ef] peer-checked/status:border-[#3662E3]">
+                                            <input type="radio" id={"status" + index} name="status" value={status.label} onChange={handleChange} checked={formState.status === status.label} className="hidden peer/status" />
+                                            <label htmlFor={"status" + index} className="w-full flex p-[2px] items-center justify-between cursor-pointer rounded-[12px] border border-[#e3e8ef] peer-checked/status:border-[#3662E3]">
                                                 <div className="flex items-center">
                                                     <div className={"p-[10px] rounded-[12px] mr-[10px] bg-[" + status.color + "]"}>
                                                         <Image width="20" height="20" src={status.icon} alt="Status Icon" />
                                                     </div>
-                                                    <label className="cursor-pointer" htmlFor={"status-button" + index}>{status.label}</label>
+                                                    <label className="cursor-pointer" htmlFor={"status" + index}>{status.label}</label>
                                                 </div>
-                                                <label htmlFor={"status-button" + index} className="bg-[#3662E3] rounded-[50%] mr-[10px] hidden done-icon cursor-pointer">
+                                                <label htmlFor={"status" + index} className="bg-[#3662E3] rounded-[50%] mr-[10px] hidden done-icon cursor-pointer">
                                                     <Image width="20" height="20" src="/images/Done_round.svg" alt="Status Icon" />
                                                 </label>
                                             </label>
@@ -108,7 +106,7 @@ const Modal = ({ onClose, title }: Props) => {
                                     <label className="mr-[5px] text-[14px] cursor-pointer">Delete</label>
                                     <Image width="20" height="20" src="/images/Trash.svg" alt="Status Icon" />
                                 </button>
-                                <button className="bg-[#3662E3] flex px-[30px] py-[10px] rounded-[22px] cursor-pointer">
+                                <button className="bg-[#3662E3] flex px-[30px] py-[10px] rounded-[22px] cursor-pointer" type="submit">
                                     <label className="mr-[5px] text-[14px] cursor-pointer">Save</label>
                                     <Image width="20" height="20" src="/images/Done_round.svg" alt="Status Icon" />
                                 </button>
