@@ -4,10 +4,19 @@ import TaskBar from "./components/TaskBar/TaskBar";
 import Modal from "./components/Modal/Modal";
 import { defaultTasks } from "./utils/defaultTasks";
 import { elementsTaskStyle } from "./utils/elementsTaskStyle";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { useLocalStorage } from "./hooks/useLocalStorage";
+import { v4 as uuid } from 'uuid';
 
 export default function Home() {
   const [showModal, setShowModal] = useState(false);
+  const [userId, setUserId] = useLocalStorage('', 'user_id');
+
+  useEffect(() => {
+    if (!userId) setUserId(uuid());
+  },
+    [userId, setUserId]
+  );
 
   return (
     <main className="flex flex-col items-center justify-between p-[20px] mt-[48px] text-[#030616]">
