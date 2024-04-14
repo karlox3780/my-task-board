@@ -40,10 +40,12 @@ const Modal = ({ onClose, title }: Props) => {
 
         console.log(formState);
     }
+    const handleDelete = (e: any) => {
+        e.preventDefault();
+        onClose();
+    }
     const modalContent = (
         <div className="modal-overlay">
-            {/* Wrap the whole Modal inside the newly created StyledModalWrapper
-            and use the ref */}
             <div className="modal-wrapper">
                 <div className="modal">
                     <div className="modal-header">
@@ -102,7 +104,7 @@ const Modal = ({ onClose, title }: Props) => {
                                 </div>
                             </div>
                             <div className="bottom-buttons flex justify-end mt-[100px] text-[#fff]">
-                                <button className="bg-[#97A3B6] flex px-[30px] py-[10px] rounded-[22px] mr-[16px] cursor-pointer">
+                                <button className="bg-[#97A3B6] flex px-[30px] py-[10px] rounded-[22px] mr-[16px] cursor-pointer" onClick={handleDelete}>
                                     <label className="mr-[5px] text-[14px] cursor-pointer">Delete</label>
                                     <Image width="20" height="20" src="/images/Trash.svg" alt="Status Icon" />
                                 </button>
