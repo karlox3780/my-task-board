@@ -11,12 +11,12 @@ import { v4 as uuid } from 'uuid';
 export default function Home() {
   const [showModal, setShowModal] = useState(false);
   const [userId, setUserId] = useLocalStorage('', 'user_id');
+  const [taskList, setTaskList] = useLocalStorage([], 'tasks');
+  let tasks;
 
-  useEffect(() => {
-    if (!userId) setUserId(uuid());
-  },
-    [userId, setUserId]
-  );
+  if (!userId) setUserId(uuid());
+  if (!taskList?.length) tasks = defaultTasks;
+  else tasks = JSON.parse(taskList);
 
   return (
     <main className="flex flex-col items-center justify-between p-[20px] mt-[48px] text-[#030616]">
@@ -30,7 +30,7 @@ export default function Home() {
           <h2 className="ml-[50px] text-[16px] text-normal mt-[6px]">Tasks to keep organised</h2>
         </div>
         {
-          defaultTasks.map(task => (
+          tasks.map((task: any) => (
             <TaskBar
               key={task.id}
               bgColor={elementsTaskStyle(task.status, "bgColor")}
