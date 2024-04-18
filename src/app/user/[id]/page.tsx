@@ -10,11 +10,12 @@ import { useLocalStorage } from "../../hooks/useLocalStorage";
 export default function Page({ params }: any) {
     const [showModal, setShowModal] = useState(false);
     const [taskList, setTaskList] = useLocalStorage('tasks', []);
-    let tasks;
 
-    if (!taskList?.length) tasks = defaultTasks;
-    else tasks = JSON.parse(taskList);
-    
+    useEffect(() => {
+        if (!taskList?.length) setTaskList(defaultTasks);
+        else setTaskList(taskList);
+    }, [taskList, setTaskList])
+
     return (
         <main className="flex flex-col items-center justify-between p-[20px] mt-[48px] text-[#030616]">
             <div className="w-[552px]">
@@ -27,7 +28,7 @@ export default function Page({ params }: any) {
                     <h2 className="ml-[50px] text-[16px] text-normal mt-[6px]">Tasks to keep organised</h2>
                 </div>
                 {
-                    tasks.map((task: any) => (
+                    taskList.map((task: any) => (
                         <TaskBar
                             key={task.id}
                             bgColor={elementsTaskStyle(task.status, "bgColor")}
