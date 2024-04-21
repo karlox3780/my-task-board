@@ -1,5 +1,5 @@
 .modal-wrapper {
-    position: absolute;
+    position: fixed;
     right: 12px;
     top: 12px;
     width: 616px;
@@ -15,7 +15,7 @@
 }
 
 .modal-overlay {
-    position: absolute;
+    position: fixed;
     top: 0;
     left: 0;
     width: 100%;

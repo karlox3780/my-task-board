@@ -8,16 +8,20 @@ import { useEffect, useState } from "react";
 import { useLocalStorage } from "../../hooks/useLocalStorage";
 
 export default function Page({ params }: any) {
+    const [isClient, setIsClient] = useState(false)
     const [showModal, setShowModal] = useState(false);
     const [taskList, setTaskList] = useLocalStorage('tasks', []);
 
     useEffect(() => {
+        setIsClient(true);
         if (!taskList?.length) setTaskList(defaultTasks);
         else setTaskList(taskList);
-    }, [taskList, setTaskList])
+        showModal ? document.documentElement.style.overflow = "hidden" : document.documentElement.style.overflow = ""
+
+    }, [taskList, setTaskList, showModal])
 
     return (
-        <main className="flex flex-col items-center justify-between p-[20px] mt-[48px] text-[#030616]">
+        (taskList && isClient) ? <main className="flex flex-col items-center justify-between p-[20px] mt-[48px] text-[#030616]">
             <div className="w-[552px]">
                 <div className="flex w-full">
                     <Image className="mr-[10px]" width={40} height={40} src="/images/Logo.svg" alt="Logo" />
@@ -53,9 +57,9 @@ export default function Page({ params }: any) {
                 </div>
             </div>
             <div id="modal-root"></div>
-            {showModal &&
-                <Modal title="Task Details" onClose={() => setShowModal(false)} />
-            }
+            {showModal && <Modal title="Task Details" onClose={() => setShowModal(false)} />}
         </main>
+            :
+            <></>
     );
 }

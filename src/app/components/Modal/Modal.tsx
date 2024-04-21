@@ -1,7 +1,10 @@
 import React, { useState } from "react";
+import { v4 as uuid } from 'uuid';
 import ReactDOM from "react-dom";
 import Image from "next/image";
+import { useLocalStorage } from "@/app/hooks/useLocalStorage";
 import './Modal.css';
+import { redirect } from "next/navigation";
 
 type Props = {
     onClose: Function;
@@ -17,13 +20,14 @@ const Modal = ({ onClose, title }: Props) => {
     ];
     const ModalRoot = document.getElementById("modal-root") as HTMLElement;
     const [activeIcon, setActiveIcon] = useState();
-
     const [formState, setFormState] = useState({
-        taskName: "",
-        description: "",
+        id: uuid(),
         icon: "",
+        title: "",
+        description: "",
         status: ""
     });
+    const [taskList, setTaskList] = useLocalStorage('tasks', []);
 
     const handleCloseClick = (e: any) => {
         e.preventDefault();
@@ -32,13 +36,12 @@ const Modal = ({ onClose, title }: Props) => {
 
     function handleChange(e: any) {
         setFormState({ ...formState, [e.target.name]: e.target.value });
-        console.log(formState);
     }
 
-    async function handleSubmit(e: any) {
+    function handleSubmit(e: any) {
         e.preventDefault();
-
-        console.log(formState);
+        setTaskList([...taskList, formState]);
+        onClose();
     }
     const handleDelete = (e: any) => {
         e.preventDefault();
@@ -59,7 +62,7 @@ const Modal = ({ onClose, title }: Props) => {
                             <div className="mt-[16px]">
                                 <label className="font-medium text-[12px] text-[#97A3B6]">Task name</label>
                                 <input className="w-full border-[1px] border-[#cdd5e0] rounded-[12px] mt-[6px] p-[10px] font-regular text-[16px] focus:outline-[#3662E3]"
-                                    name="taskName" type="text" placeholder="Enter a task name" onChange={handleChange} required />
+                                    name="title" type="text" placeholder="Enter a task name" onChange={handleChange} required />
                             </div>
                             <div className="mt-[20px]">
                                 <label className="font-medium text-[12px] text-[#97A3B6]">Description</label>
@@ -108,7 +111,7 @@ const Modal = ({ onClose, title }: Props) => {
                                     <label className="mr-[5px] text-[14px] cursor-pointer">Delete</label>
                                     <Image width="20" height="20" src="/images/Trash.svg" alt="Status Icon" />
                                 </button>
-                                <button className="bg-[#3662E3] flex px-[30px] py-[10px] rounded-[22px] cursor-pointer" type="submit">
+                                <button className="bg-[#3662E3] flex px-[30px] py-[10px] rounded-[22px] cursor-pointer" onClick={handleSubmit}>
                                     <label className="mr-[5px] text-[14px] cursor-pointer">Save</label>
                                     <Image width="20" height="20" src="/images/Done_round.svg" alt="Status Icon" />
                                 </button>

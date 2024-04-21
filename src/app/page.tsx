@@ -1,4 +1,4 @@
-"use client";
+"use client"
 import { v4 as uuid } from 'uuid';
 import { useLocalStorage } from './hooks/useLocalStorage';
 import { redirect } from 'next/navigation';
