@@ -1,10 +1,9 @@
+import './Modal.css';
 import React, { useState } from "react";
 import { v4 as uuid } from 'uuid';
 import ReactDOM from "react-dom";
 import Image from "next/image";
 import { useLocalStorage } from "@/app/hooks/useLocalStorage";
-import './Modal.css';
-import { redirect } from "next/navigation";
 
 type Props = {
     onClose: Function;
