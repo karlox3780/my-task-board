@@ -13,13 +13,14 @@ type Props = {
 };
 
 const Modal = ({ taskId, setTask, tasks, onClose, title }: Props) => {
+    const ModalRoot = document.getElementById("modal-root") as HTMLElement;
+    const editTask = tasks.filter((task: any) => task.id === taskId)
     const icons = ['👨🏻‍💻', '💬', '☕️', '🏋️', '📚', '⏰'];
     const status = [
         { icon: '/images/Time_atack_duotone.svg', label: 'In Progress', color: '#E9A23B' },
         { icon: '/images/Done_round_duotone.svg', label: 'Completed', color: '#32D657' },
         { icon: '/images/close_ring_duotone.svg', label: "Won't do", color: '#DD524C' },
     ];
-    const ModalRoot = document.getElementById("modal-root") as HTMLElement;
     const [formState, setFormState] = useState({
         id: uuid(),
         icon: "",
@@ -27,12 +28,10 @@ const Modal = ({ taskId, setTask, tasks, onClose, title }: Props) => {
         description: "",
         status: ""
     });
-
     const handleCloseClick = (e: any) => {
         e.preventDefault();
         onClose();
     };
-
     function handleChange(e: any) {
         setFormState({ ...formState, [e.target.name]: e.target.value });
     }
@@ -62,12 +61,12 @@ const Modal = ({ taskId, setTask, tasks, onClose, title }: Props) => {
                             <div className="mt-[16px]">
                                 <label className="font-medium text-[12px] text-[#97A3B6]">Task name</label>
                                 <input className="w-full border-[1px] border-[#cdd5e0] rounded-[12px] mt-[6px] p-[10px] font-regular text-[16px] focus:outline-[#3662E3]"
-                                    name="title" type="text" placeholder="Enter a task name" onChange={handleChange} required />
+                                    name="title" type="text" placeholder="Enter a task name" defaultValue={editTask.length > 0 ? editTask[0].title : ""} onChange={handleChange} required />
                             </div>
                             <div className="mt-[20px]">
                                 <label className="font-medium text-[12px] text-[#97A3B6]">Description</label>
                                 <textarea className="w-full h-[200px] border-[1px] border-[#cdd5e0] rounded-[12px] mt-[6px] p-[10px] font-regular text-[16px] focus:outline-[#3662E3] resize-none"
-                                    name="description" placeholder="Enter a short description" onChange={handleChange}></textarea>
+                                    name="description" placeholder="Enter a short description" defaultValue={editTask.length > 0 ? editTask[0].description : ""} onChange={handleChange}></textarea>
                             </div>
                             <div className="mt-[20px]">
                                 <label className="font-medium text-[12px] text-[#97A3B6]">Icon</label>
@@ -75,7 +74,7 @@ const Modal = ({ taskId, setTask, tasks, onClose, title }: Props) => {
                                     {
                                         icons.map((icon, index) => (
                                             <span key={icon}>
-                                                <input type="radio" id={"icon" + index} name="icon" value={icon} onChange={handleChange} checked={formState.icon === icon} className="hidden peer" />
+                                                <input type="radio" id={"icon" + index} name="icon" value={icon} onChange={handleChange} defaultChecked={editTask.length > 0 ? editTask[0].icon === icon : formState.icon === icon} className="hidden peer" />
                                                 <label htmlFor={"icon" + index}
                                                     className="w-[44px] h-[44px] flex justify-center items-center mt-[6px] text-[20px] rounded-[12px] bg-[#e3e8ef] cursor-pointer peer-checked:bg-[#F5D565]">
                                                     {icon}
@@ -90,7 +89,7 @@ const Modal = ({ taskId, setTask, tasks, onClose, title }: Props) => {
                                 <div className="grid grid-cols-2 gap-x-[16px] gap-y-[6px] w-full">
                                     {status.map((status, index) => (
                                         <div className="cursor-pointer" key={index}>
-                                            <input type="radio" id={"status" + index} name="status" value={status.label} onChange={handleChange} checked={formState.status === status.label} className="hidden peer/status" />
+                                            <input type="radio" id={"status" + index} name="status" value={status.label} onChange={handleChange} defaultChecked={editTask.length > 0 ? editTask[0].status === status.label : formState.status === status.label} className="hidden peer/status" />
                                             <label htmlFor={"status" + index} className="w-full flex p-[2px] items-center justify-between cursor-pointer rounded-[12px] border border-[#e3e8ef] peer-checked/status:border-[#3662E3]">
                                                 <div className="flex items-center">
                                                     <div className={"p-[10px] rounded-[12px] mr-[10px] bg-[" + status.color + "]"}>
