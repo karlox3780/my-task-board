@@ -3,14 +3,16 @@ import React, { useState } from "react";
 import { v4 as uuid } from 'uuid';
 import ReactDOM from "react-dom";
 import Image from "next/image";
-import { useLocalStorage } from "@/app/hooks/useLocalStorage";
 
 type Props = {
+    taskId: string;
+    setTask: any;
+    tasks: any;
     onClose: Function;
     title: string;
 };
 
-const Modal = ({ onClose, title }: Props) => {
+const Modal = ({ taskId, setTask, tasks, onClose, title }: Props) => {
     const icons = ['👨🏻‍💻', '💬', '☕️', '🏋️', '📚', '⏰'];
     const status = [
         { icon: '/images/Time_atack_duotone.svg', label: 'In Progress', color: '#E9A23B' },
@@ -18,7 +20,6 @@ const Modal = ({ onClose, title }: Props) => {
         { icon: '/images/close_ring_duotone.svg', label: "Won't do", color: '#DD524C' },
     ];
     const ModalRoot = document.getElementById("modal-root") as HTMLElement;
-    const [activeIcon, setActiveIcon] = useState();
     const [formState, setFormState] = useState({
         id: uuid(),
         icon: "",
@@ -26,7 +27,6 @@ const Modal = ({ onClose, title }: Props) => {
         description: "",
         status: ""
     });
-    const [taskList, setTaskList] = useLocalStorage('tasks', []);
 
     const handleCloseClick = (e: any) => {
         e.preventDefault();
@@ -39,11 +39,12 @@ const Modal = ({ onClose, title }: Props) => {
 
     function handleSubmit(e: any) {
         e.preventDefault();
-        setTaskList([...taskList, formState]);
+        setTask([...tasks, formState]);
         onClose();
     }
     const handleDelete = (e: any) => {
         e.preventDefault();
+        setTask(tasks.filter((task: any) => task.id !== taskId));
         onClose();
     }
     const modalContent = (

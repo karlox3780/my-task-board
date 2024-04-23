@@ -11,6 +11,7 @@ export default function Page({ params }: any) {
     const [isClient, setIsClient] = useState(false)
     const [showModal, setShowModal] = useState(false);
     const [taskList, setTaskList] = useLocalStorage('tasks', []);
+    const [taskId, setTaskId] = useState("");
 
     useEffect(() => {
         setIsClient(true);
@@ -33,15 +34,20 @@ export default function Page({ params }: any) {
                 </div>
                 {
                     taskList.map((task: any) => (
-                        <TaskBar
-                            key={task.id}
-                            bgColor={elementsTaskStyle(task.status, "bgColor")}
-                            logoColor="bg-[#f8fafc]"
-                            secondLogoColor={elementsTaskStyle(task.status, "secondLogoColor")}
-                            firstLogo={task.icon}
-                            Text={task.title}
-                            Paragraph={task.description}
-                            secondLogo={elementsTaskStyle(task.status, "secondLogo")} />
+                        <div className="cursor-pointer" key={task.id} onClick={() => {
+                            setShowModal(true)
+                            setTaskId(task.id)
+                        }}>
+                            <TaskBar
+                                bgColor={elementsTaskStyle(task.status, "bgColor")}
+                                logoColor="bg-[#f8fafc]"
+                                secondLogoColor={elementsTaskStyle(task.status, "secondLogoColor")}
+                                firstLogo={task.icon}
+                                Text={task.title}
+                                Paragraph={task.description}
+                                secondLogo={elementsTaskStyle(task.status, "secondLogo")}
+                            />
+                        </div>
                     ))
                 }
                 <div className="cursor-pointer" onClick={() => setShowModal(true)}>
@@ -57,7 +63,7 @@ export default function Page({ params }: any) {
                 </div>
             </div>
             <div id="modal-root"></div>
-            {showModal && <Modal title="Task Details" onClose={() => setShowModal(false)} />}
+            {showModal && <Modal title="Task Details" taskId={taskId} setTask={setTaskList} tasks={taskList} onClose={() => setShowModal(false)} />}
         </main>
             :
             <></>
