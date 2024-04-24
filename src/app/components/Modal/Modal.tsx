@@ -1,5 +1,5 @@
 import './Modal.css';
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { v4 as uuid } from 'uuid';
 import ReactDOM from "react-dom";
 import Image from "next/image";
@@ -22,12 +22,13 @@ const Modal = ({ taskId, setTask, tasks, onClose, title }: Props) => {
         { icon: '/images/close_ring_duotone.svg', label: "Won't do", color: '#DD524C' },
     ];
     const [formState, setFormState] = useState({
-        id: uuid(),
-        icon: "",
-        title: "",
-        description: "",
-        status: ""
+        id: editTask.length > 0 ? editTask[0].id : uuid(),
+        icon: editTask.length > 0 ? editTask[0].icon : "",
+        title: editTask.length > 0 ? editTask[0].title : "",
+        description: editTask.length > 0 ? editTask[0].description : "",
+        status: editTask.length > 0 ? editTask[0].status : ""
     });
+
     const handleCloseClick = (e: any) => {
         e.preventDefault();
         onClose();
@@ -38,7 +39,20 @@ const Modal = ({ taskId, setTask, tasks, onClose, title }: Props) => {
 
     function handleSubmit(e: any) {
         e.preventDefault();
-        setTask([...tasks, formState]);
+        let taskEdit = "";
+        if (editTask.length > 0) {
+            taskEdit = tasks.map((task: any) => {
+                if (task.id === editTask[0].id) {
+                    return formState;
+                } else {
+                    return task;
+                }
+            });
+            setTask(taskEdit);
+        }
+        else {
+            setTask([...tasks, formState]);
+        }
         onClose();
     }
     const handleDelete = (e: any) => {

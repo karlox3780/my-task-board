@@ -18,7 +18,6 @@ export default function Page({ params }: any) {
         if (!taskList?.length) setTaskList(defaultTasks);
         else setTaskList(taskList);
         showModal ? document.documentElement.style.overflow = "hidden" : document.documentElement.style.overflow = ""
-
     }, [taskList, setTaskList, showModal])
 
     return (
