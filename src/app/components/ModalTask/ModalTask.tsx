@@ -1,5 +1,4 @@
-import './Modal.css';
-import React, { useEffect, useState } from "react";
+import { useState } from "react";
 import { v4 as uuid } from 'uuid';
 import ReactDOM from "react-dom";
 import Image from "next/image";
@@ -12,7 +11,7 @@ type Props = {
     title: string;
 };
 
-const Modal = ({ taskId, setTask, tasks, onClose, title }: Props) => {
+const ModalTask = ({ taskId, setTask, tasks, onClose, title }: Props) => {
     const ModalRoot = document.getElementById("modal-root") as HTMLElement;
     let editTask: any[] = [];
     taskId !== "" ? editTask = tasks.filter((task: any) => task.id === taskId) : editTask = []
@@ -141,4 +140,4 @@ const Modal = ({ taskId, setTask, tasks, onClose, title }: Props) => {
     );
 };
 
-export default Modal;
+export default ModalTask;
