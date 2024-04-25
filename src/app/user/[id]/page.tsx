@@ -49,7 +49,10 @@ export default function Page({ params }: any) {
                         </div>
                     ))
                 }
-                <div className="cursor-pointer" onClick={() => setShowModal(true)}>
+                <div className="cursor-pointer" onClick={() => {
+                    setShowModal(true)
+                    setTaskId("")
+                }}>
                     <TaskBar
                         bgColor="bg-[#F5E8D5]"
                         logoColor="bg-[#E9A23B]"

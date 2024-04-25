@@ -14,7 +14,8 @@ type Props = {
 
 const Modal = ({ taskId, setTask, tasks, onClose, title }: Props) => {
     const ModalRoot = document.getElementById("modal-root") as HTMLElement;
-    const editTask = tasks.filter((task: any) => task.id === taskId)
+    let editTask: any[] = [];
+    taskId !== "" ? editTask = tasks.filter((task: any) => task.id === taskId) : editTask = []
     const icons = ['👨🏻‍💻', '💬', '☕️', '🏋️', '📚', '⏰'];
     const status = [
         { icon: '/images/Time_atack_duotone.svg', label: 'In Progress', color: '#E9A23B' },
@@ -28,7 +29,6 @@ const Modal = ({ taskId, setTask, tasks, onClose, title }: Props) => {
         description: editTask.length > 0 ? editTask[0].description : "",
         status: editTask.length > 0 ? editTask[0].status : ""
     });
-
     const handleCloseClick = (e: any) => {
         e.preventDefault();
         onClose();
@@ -36,7 +36,6 @@ const Modal = ({ taskId, setTask, tasks, onClose, title }: Props) => {
     function handleChange(e: any) {
         setFormState({ ...formState, [e.target.name]: e.target.value });
     }
-
     function handleSubmit(e: any) {
         e.preventDefault();
         let taskEdit = "";
