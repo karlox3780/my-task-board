@@ -10,7 +10,7 @@ export default function Page() {
   useEffect(() => {
 
     if (!userId) setUserId(uuid());
-    userId && redirect(`/user/${userId}`);
+    userId && redirect(`/board/${userId}`);
 
   }, [userId, setUserId])
 }
