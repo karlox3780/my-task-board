@@ -26,7 +26,7 @@ export default function Page({ params }: any) {
 
     return (
         (taskList && isClient) ? <main className="flex flex-col items-center justify-between p-[20px] mt-[48px] text-[#030616]">
-            <div className="w-[552px]">
+            <div className="w-[552px]  max-sm:w-full">
                 <div className="flex w-full cursor-pointer" onClick={() => { setShowModalBoard(true) }}>
                     <Image className="mr-[10px]" width={40} height={40} src="/images/Logo.svg" alt="Logo" />
                     <h1 className="text-[40px] font-normal mr-[10px]">{boardDetail[0]?.title}</h1>
