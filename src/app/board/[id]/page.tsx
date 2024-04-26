@@ -1,8 +1,8 @@
 "use client";
 import Image from "next/image";
 import TaskBar from "../../components/taskBar/TaskBar";
-import Modal from "../../components/ModalTask/ModalTask";
 import { defaultTasks } from "../../utils/defaultTasks";
+import { defaultBoardDetails } from "../../utils/defaultBoardDetails";
 import { elementsTaskStyle } from "../../utils/elementsTaskStyle";
 import { useEffect, useState } from "react";
 import { useLocalStorage } from "../../hooks/useLocalStorage";
@@ -14,25 +14,26 @@ export default function Page({ params }: any) {
     const [showModalTask, setShowModalTask] = useState(false);
     const [showModalBoard, setShowModalBoard] = useState(false);
     const [taskList, setTaskList] = useLocalStorage('tasks', []);
+    const [boardDetail, setBoardDetail] = useLocalStorage('boardDetail', []);
     const [taskId, setTaskId] = useState("");
 
     useEffect(() => {
         setIsClient(true);
-        if (!taskList?.length) setTaskList(defaultTasks);
-        else setTaskList(taskList);
+        !taskList?.length ? setTaskList(defaultTasks) : setTaskList(taskList);
+        !boardDetail?.length ? setBoardDetail(defaultBoardDetails) : setBoardDetail(boardDetail);
         showModalTask ? document.documentElement.style.overflow = "hidden" : document.documentElement.style.overflow = ""
-    }, [taskList, setTaskList, showModalTask])
+    }, [taskList, setTaskList, showModalTask, setBoardDetail, boardDetail])
 
     return (
         (taskList && isClient) ? <main className="flex flex-col items-center justify-between p-[20px] mt-[48px] text-[#030616]">
             <div className="w-[552px]">
                 <div className="flex w-full cursor-pointer" onClick={() => { setShowModalBoard(true) }}>
                     <Image className="mr-[10px]" width={40} height={40} src="/images/Logo.svg" alt="Logo" />
-                    <h1 className="text-[40px] font-normal mr-[10px]">My Task Board</h1>
+                    <h1 className="text-[40px] font-normal mr-[10px]">{boardDetail[0]?.title}</h1>
                     <Image className="" width={25} height={25} src="/images/Edit_duotone.svg" alt="Edit Image" />
                 </div>
                 <div className="mb-[40px]">
-                    <h2 className="ml-[50px] text-[16px] text-normal mt-[6px]">Tasks to keep organised</h2>
+                    <h2 className="ml-[50px] text-[16px] text-normal mt-[6px]">{boardDetail[0]?.description}</h2>
                 </div>
                 {
                     taskList.map((task: any) => (
@@ -69,7 +70,7 @@ export default function Page({ params }: any) {
             </div>
             <div id="modal-root"></div>
             {showModalTask && <ModalTask title="Task Details" taskId={taskId} setTask={setTaskList} tasks={taskList} onClose={() => setShowModalTask(false)} />}
-            {showModalBoard && <ModalBoard title="Board Details" onClose={() => setShowModalBoard(false)} />}
+            {showModalBoard && <ModalBoard title="Board Details" setBoardDetail={setBoardDetail} boardDetail={boardDetail} onClose={() => setShowModalBoard(false)} />}
         </main>
             :
             <></>

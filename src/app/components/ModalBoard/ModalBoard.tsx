@@ -3,16 +3,17 @@ import ReactDOM from "react-dom";
 import Image from "next/image";
 
 type Props = {
+    setBoardDetail: any,
+    boardDetail: any,
     onClose: Function;
     title: string;
 };
 
-const ModalBoard = ({ onClose, title }: Props) => {
+const ModalBoard = ({ setBoardDetail, boardDetail, onClose, title }: Props) => {
     const ModalRoot = document.getElementById("modal-root") as HTMLElement;
     const [formState, setFormState] = useState({
-        id: "",
-        title: "",
-        description: "",
+        title: boardDetail.length > 0 ? boardDetail[0].title : "",
+        description: boardDetail.length > 0 ? boardDetail[0].description : "",
     });
     const handleCloseClick = (e: any) => {
         e.preventDefault();
@@ -23,10 +24,7 @@ const ModalBoard = ({ onClose, title }: Props) => {
     }
     function handleSubmit(e: any) {
         e.preventDefault();
-        onClose();
-    }
-    const handleDelete = (e: any) => {
-        e.preventDefault();
+        setBoardDetail([formState]);
         onClose();
     }
     const modalContent = (
@@ -44,18 +42,14 @@ const ModalBoard = ({ onClose, title }: Props) => {
                             <div className="mt-[16px]">
                                 <label className="font-medium text-[12px] text-[#97A3B6]">Board Title</label>
                                 <input className="w-full border-[1px] border-[#cdd5e0] rounded-[12px] mt-[6px] p-[10px] font-regular text-[16px] focus:outline-[#3662E3]"
-                                    name="title" type="text" placeholder="Enter a board title" /*defaultValue={editTask.length > 0 ? editTask[0].title : ""}*/ onChange={handleChange} required />
+                                    name="title" type="text" placeholder="Enter a board title" defaultValue={boardDetail.length > 0 ? boardDetail[0].title : ""} onChange={handleChange} required />
                             </div>
                             <div className="mt-[20px]">
                                 <label className="font-medium text-[12px] text-[#97A3B6]">Board Description</label>
                                 <input className="w-full border-[1px] border-[#cdd5e0] rounded-[12px] mt-[6px] p-[10px] font-regular text-[16px] focus:outline-[#3662E3]"
-                                    name="description" type="text" placeholder="Enter a board description" /*defaultValue={editTask.length > 0 ? editTask[0].description : ""} */ onChange={handleChange} required />
+                                    name="description" type="text" placeholder="Enter a board description" defaultValue={boardDetail.length > 0 ? boardDetail[0].description : ""} onChange={handleChange} required />
                             </div>
                             <div className="bottom-buttons flex justify-end mt-[100px] text-[#fff]">
-                                <button className="bg-[#97A3B6] flex px-[30px] py-[10px] rounded-[22px] mr-[16px] cursor-pointer" onClick={handleDelete}>
-                                    <label className="mr-[5px] text-[14px] cursor-pointer">Delete</label>
-                                    <Image width="20" height="20" src="/images/Trash.svg" alt="Status Icon" />
-                                </button>
                                 <button className="bg-[#3662E3] flex px-[30px] py-[10px] rounded-[22px] cursor-pointer" onClick={handleSubmit}>
                                     <label className="mr-[5px] text-[14px] cursor-pointer">Save</label>
                                     <Image width="20" height="20" src="/images/Done_round.svg" alt="Status Icon" />
