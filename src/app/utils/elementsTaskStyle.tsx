@@ -8,13 +8,13 @@ export function elementsTaskStyle(status: string, type: string) {
         case "Completed":
             if (type === "bgColor") { elementStyle = "bg-[#A0ECB1]"; } else if (type === "secondLogoColor") { elementStyle = "bg-[#32D657]"; }
             else {
-                elementStyle = "/images/done_round_duotone.svg";
+                elementStyle = "/images/Done_round_duotone.svg";
             }
             break;
         case "Won't do":
             if (type === "bgColor") { elementStyle = "bg-[#F7D4D3]"; } else if (type === "secondLogoColor") { elementStyle = "bg-[#DD524C]"; }
             else {
-                elementStyle = "/images/done_round_duotone.svg";
+                elementStyle = "/images/close_ring_duotone.svg";
             }
             break;
         default:
